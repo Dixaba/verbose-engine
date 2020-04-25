@@ -1,12 +1,12 @@
 name: $(BuildID)
 
 trigger:
-  - test
+  - master
 
 pr: none
 
 variables:
-  image: dixaba/test
+  DockerImage: dixaba/test
 
 jobs:
   - job: big
@@ -34,7 +34,7 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: $(image)
+        imageName: $(DockerImage)
 
 
   - job: latest
@@ -64,7 +64,7 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: $(image)
+        imageName: $(DockerImage)
 
 
   - job: latestx64
@@ -94,7 +94,7 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: $(image)
+        imageName: $(DockerImage)
 
 
   - job: both
@@ -125,4 +125,4 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: $(image)
+        imageName: $(DockerImage)
