@@ -15,6 +15,7 @@ steps:
       command: login
     
   - task: Bash@3
+    displayName: chmod
     inputs:
       targetType: 'inline'
       script: chmod +x build.sh
