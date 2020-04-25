@@ -2,7 +2,7 @@ parameters:
   - name: ImageName
     type: string
     default: ''
-  - name: DockerImage
+  - name: DockerImageName
     type: string
     default: ''
 
@@ -13,9 +13,14 @@ steps:
       containerregistrytype: 'Container Registry'
       dockerRegistryEndpoint: 'Docker Hub'
       command: login
+    
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: chmod +x build.sh
 
   - task: Bash@3
-    displayName: 'build.sh base'
+    displayName: build.sh ${{ parameters.ImageName }}
     inputs:
       targetType: filePath
       filePath: ./build.sh
@@ -28,4 +33,4 @@ steps:
       containerregistrytype: 'Container Registry'
       dockerRegistryEndpoint: 'Docker Hub'
       command: 'Push an image'
-      imageName: ${{ parameters.DockerImage }}
+      imageName: ${{ parameters.DockerImageName }}
