@@ -19,19 +19,6 @@ jobs:
           ImageName: 'latest-big'
           DockerImageName: $(DockerImageName)
 
-  - job: latest64
-    timeoutInMinutes: 0
-    dependsOn:
-    - big
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-      - template: build_image.yml
-        parameters:
-          ImageName: 'latest-x64'
-          DockerImageName: $(DockerImageName)
-
-
   - job: latestx64
     timeoutInMinutes: 0
     dependsOn:
@@ -43,8 +30,18 @@ jobs:
           parameters:
             ImageName: 'latest-x64'
             DockerImageName: $(DockerImageName)
-  
 
+  - job: latest
+    timeoutInMinutes: 0
+    dependsOn:
+    - big
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - template: build_image.yml
+        parameters:
+          ImageName: 'latest'
+          DockerImageName: $(DockerImageName)
 
   - job: both
     timeoutInMinutes: 0
