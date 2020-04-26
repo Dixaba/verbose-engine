@@ -26,14 +26,9 @@ jobs:
     pool:
       vmImage: ubuntu-latest
     steps:
-      - task: Bash@3
-        displayName: ooyoy
-        inputs:
-          targetType: 'inline'
-          script: echo latest
       - template: build_image.yml
         parameters:
-          ImageName: latest
+          ImageName: 'latest'
           DockerImageName: $(DockerImageName)
 
 
@@ -44,15 +39,10 @@ jobs:
     pool:
       vmImage: ubuntu-latest
       steps:
-        - task: Bash@3
-          displayName: ooyoy
-          inputs:
-            targetType: 'inline'
-            script: echo 'latestx64'
-        # - template: build_image.yml
-        #   parameters:
-        #     ImageName: 'latest-x64'
-        #     DockerImageName: $(DockerImageName)
+        - template: build_image.yml
+          parameters:
+            ImageName: 'latest-x64'
+            DockerImageName: $(DockerImageName)
   
 
 
@@ -64,11 +54,6 @@ jobs:
     pool:
       vmImage: ubuntu-latest
       steps:
-        - task: Bash@3
-          displayName: ooyoy
-          inputs:
-            targetType: 'inline'
-            script: echo 'latestboth'
         - template: build_image.yml
           parameters:
             ImageName: 'latest-both'
