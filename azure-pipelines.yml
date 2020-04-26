@@ -40,10 +40,10 @@ jobs:
       steps:
         - script: echo 'latest-x64'
         - script: echo $(DockerImageName)
-        - template: build_image.yml
-          parameters:
-            ImageName: 'latest-x64'
-            DockerImageName: $(DockerImageName)
+        # - template: build_image.yml
+        #   parameters:
+        #     ImageName: 'latest-x64'
+        #     DockerImageName: $(DockerImageName)
 
   - job: both
     timeoutInMinutes: 0
