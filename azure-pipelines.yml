@@ -35,6 +35,7 @@ jobs:
     timeoutInMinutes: 0
     dependsOn:
     - big
+    - x86
     pool:
       vmImage: ubuntu-latest
       steps:
