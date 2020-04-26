@@ -21,7 +21,7 @@ steps:
       script: chmod +x build.sh
 
   - task: Bash@3
-    displayName: build.sh ${{ parameters.ImageName }}
+    displayName: 'build.sh ${{ parameters.ImageName }}'
     inputs:
       targetType: filePath
       filePath: ./build.sh
