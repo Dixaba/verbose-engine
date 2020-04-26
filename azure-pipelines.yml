@@ -44,5 +44,5 @@ jobs:
       - script: echo $(DockerImageName)
       - template: build_image.yml
         parameters:
-          ImageName: 'latest-'
+          ImageName: 'latest-x'
           DockerImageName: $(DockerImageName)
