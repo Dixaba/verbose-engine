@@ -46,7 +46,7 @@ jobs:
   - job: both
     timeoutInMinutes: 0
     dependsOn:
-    - latest64
+    - latest
     - latestx64
     pool:
       vmImage: ubuntu-latest
