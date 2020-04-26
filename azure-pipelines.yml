@@ -28,7 +28,7 @@ jobs:
       steps:
         - template: build_image.yml
           parameters:
-            ImageName: 'latest-x64'
+            ImageName: 'latestx64'
             DockerImageName: $(DockerImageName)
 
   - job: latest
