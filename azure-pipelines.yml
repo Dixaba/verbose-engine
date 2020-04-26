@@ -26,6 +26,8 @@ jobs:
     pool:
       vmImage: ubuntu-latest
     steps:
+      - script: echo 'latest-x64'
+      - script: echo $(DockerImageName)
       - template: build_image.yml
         parameters:
           ImageName: 'latest'
