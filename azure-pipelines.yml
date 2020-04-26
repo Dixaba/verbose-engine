@@ -49,10 +49,10 @@ jobs:
           inputs:
             targetType: 'inline'
             script: echo 'latestx64'
-        - template: build_image.yml
-          parameters:
-            ImageName: 'latest-x64'
-            DockerImageName: $(DockerImageName)
+        # - template: build_image.yml
+        #   parameters:
+        #     ImageName: 'latest-x64'
+        #     DockerImageName: $(DockerImageName)
   
 
 
