@@ -48,7 +48,7 @@ jobs:
           displayName: ooyoy
           inputs:
             targetType: 'inline'
-            script: echo 'latest-x64'
+            script: echo 'latestx64'
         - template: build_image.yml
           parameters:
             ImageName: 'latest-x64'
@@ -68,7 +68,7 @@ jobs:
           displayName: ooyoy
           inputs:
             targetType: 'inline'
-            script: echo 'latest-both'
+            script: echo 'latestboth'
         - template: build_image.yml
           parameters:
             ImageName: 'latest-both'

@@ -10,9 +10,8 @@ then
   then
     #docker build -f $FILENAME -t $REPONAME:$NAME .
     echo $FILENAME
-    VERSION=$(grep -oP 'Using Qt version \K[0-9.]+' <<< $(docker run --rm $REPONAME:$NAME qmake --version))
+    # VERSION=$(grep -oP 'Using Qt version \K[0-9.]+' <<< $(docker run --rm $REPONAME:$NAME qmake --version))
     # docker image tag $REPONAME:$NAME $REPONAME:$(sed "s/latest/$VERSION/" <<< $NAME)
-    echo $REPONAME:$(sed "s/latest/$VERSION/" <<< $NAME)
   else
     echo "No such Dockerfile found!";
   fi
