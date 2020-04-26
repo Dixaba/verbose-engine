@@ -22,7 +22,7 @@ jobs:
   - job: latest
     timeoutInMinutes: 0
     dependsOn:
-    - big
+      - big
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -34,7 +34,7 @@ jobs:
   - job: latestx64
     timeoutInMinutes: 0
     dependsOn:
-    - big
+      - big
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -46,7 +46,8 @@ jobs:
   - job: both
     timeoutInMinutes: 0
     dependsOn:
-    - big
+      - latest
+      - latestx64
     pool:
       vmImage: ubuntu-latest
     steps:
