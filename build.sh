@@ -8,12 +8,11 @@ then
   FILENAME=$(sed -e 's/\-/\./g; s/latest\.\?//; s/$/\.Dockerfile/; s/^\.//' <<< $NAME)
   if [ -e $FILENAME ];
   then
-    docker build -f $FILENAME -t $REPONAME:$NAME .
-    if [ $NAME != "base" ]
-    then
-      VERSION=$(grep -oP 'Using Qt version \K[0-9.]+' <<< $(docker run --rm $REPONAME:$NAME qmake --version))
-      docker image tag $REPONAME:$NAME $REPONAME:$(sed "s/latest/$VERSION/" <<< $NAME)
-    fi
+    #docker build -f $FILENAME -t $REPONAME:$NAME .
+    echo $FILENAME
+    VERSION=$(grep -oP 'Using Qt version \K[0-9.]+' <<< $(docker run --rm $REPONAME:$NAME qmake --version))
+    # docker image tag $REPONAME:$NAME $REPONAME:$(sed "s/latest/$VERSION/" <<< $NAME)
+    echo $REPONAME:$(sed "s/latest/$VERSION/" <<< $NAME)
   else
     echo "No such Dockerfile found!";
   fi

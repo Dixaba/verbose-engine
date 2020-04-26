@@ -9,15 +9,15 @@ variables:
   DockerImageName: dixaba/test
 
 jobs:
-  # - job: big
-  #   timeoutInMinutes: 0
-  #   pool:
-  #     vmImage: ubuntu-latest
-  #   steps:
-  #     - template: build_image.yml
-  #       parameters:
-  #         ImageName: big
-  #         DockerImageName: $(DockerImageName)
+  - job: big
+    timeoutInMinutes: 0
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - template: build_image.yml
+        parameters:
+          ImageName: 'latest-big'
+          DockerImageName: $(DockerImageName)
 
   - job: latest
     timeoutInMinutes: 0
@@ -26,6 +26,11 @@ jobs:
     pool:
       vmImage: ubuntu-latest
     steps:
+      - task: Bash@3
+        displayName: ooyoy
+        inputs:
+          targetType: 'inline'
+          script: echo latest
       - template: build_image.yml
         parameters:
           ImageName: latest
@@ -39,6 +44,11 @@ jobs:
     pool:
       vmImage: ubuntu-latest
       steps:
+        - task: Bash@3
+          displayName: ooyoy
+          inputs:
+            targetType: 'inline'
+            script: echo 'latest-x64'
         - template: build_image.yml
           parameters:
             ImageName: 'latest-x64'
@@ -54,6 +64,11 @@ jobs:
     pool:
       vmImage: ubuntu-latest
       steps:
+        - task: Bash@3
+          displayName: ooyoy
+          inputs:
+            targetType: 'inline'
+            script: echo 'latest-both'
         - template: build_image.yml
           parameters:
             ImageName: 'latest-both'

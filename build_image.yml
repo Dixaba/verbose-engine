@@ -28,10 +28,10 @@ steps:
       arguments: '${{ parameters.ImageName }}'
       workingDirectory: '$(Build.SourcesDirectory)'
 
-  - task: Docker@1
-    displayName: 'docker push'
-    inputs:
-      containerregistrytype: 'Container Registry'
-      dockerRegistryEndpoint: 'Docker Hub'
-      command: 'Push an image'
-      imageName: '${{ parameters.DockerImageName }}'
+  # - task: Docker@1
+  #   displayName: 'docker push'
+  #   inputs:
+  #     containerregistrytype: 'Container Registry'
+  #     dockerRegistryEndpoint: 'Docker Hub'
+  #     command: 'Push an image'
+  #     imageName: '${{ parameters.DockerImageName }}'
