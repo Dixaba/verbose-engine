@@ -23,7 +23,7 @@ jobs:
         script: |
           chmod +x build.sh
           REPONAME=$(DockerImageName) ./build.sh latest-buildx86
-          REPONAME=$(DockerImageName) ./build.sh latest-x86 tag
+          REPONAME=$(DockerImageName) ./build.sh latest tag
           docker rmi $(DockerImageName):latest-buildx86
 
     - template: push_images.yml
