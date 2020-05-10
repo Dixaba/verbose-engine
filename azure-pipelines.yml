@@ -8,50 +8,127 @@ pr: none
 variables:
   DockerImageName: dixaba/test
 
-jobs:
-  - job: big
-    timeoutInMinutes: 0
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-      - template: build_image.yml
-        parameters:
-          ImageName: 'latest-big'
-          DockerImageName: $(DockerImageName)
+pool: 
+  vmImage: ubuntu-latest
 
+jobs:
   - job: latest
     timeoutInMinutes: 0
-    dependsOn:
-      - big
-    pool:
-      vmImage: ubuntu-latest
     steps:
-      - template: build_image.yml
-        parameters:
-          ImageName: 'latest'
-          DockerImageName: $(DockerImageName)
+
+    - task: Bash@3
+      displayName: chmod
+      inputs:
+        targetType: 'inline'
+        script: chmod +x build.sh
+    - task: Bash@3
+      displayName: 'build.sh'
+      inputs:
+        targetType: filePath
+        filePath: REPONAME=$(DockerImageName) ./build.sh
+        arguments: 'latest-buildx86'
+        workingDirectory: '$(Build.SourcesDirectory)'
+    - task: Bash@3
+      displayName: 'build.sh'
+      inputs:
+        targetType: filePath
+        filePath: REPONAME=$(DockerImageName) ./build.sh
+        arguments: 'latest tag'
+        workingDirectory: '$(Build.SourcesDirectory)'
+    - task: Bash@3
+      displayName: docker rmi
+      inputs:
+        targetType: 'inline'
+        script: 'docker rmi $(DockerImageName):latest-buildx64'
+
+    - task: Docker@1
+      displayName: 'docker login'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: login
+    - task: Docker@1
+      displayName: 'docker push'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Push an image'
+        imageName: '${{ parameters.DockerImageName }}'
+
 
   - job: latestx64
     timeoutInMinutes: 0
-    dependsOn:
-      - big
-    pool:
-      vmImage: ubuntu-latest
     steps:
-      - template: build_image.yml
-        parameters:
-          ImageName: 'latest-x64'
-          DockerImageName: $(DockerImageName)
+
+    - task: Bash@3
+      displayName: chmod
+      inputs:
+        targetType: 'inline'
+        script: chmod +x build.sh
+    - task: Bash@3
+      displayName: 'build.sh'
+      inputs:
+        targetType: filePath
+        filePath: REPONAME=$(DockerImageName) ./build.sh
+        arguments: 'latest-buildx64'
+        workingDirectory: '$(Build.SourcesDirectory)'
+    - task: Bash@3
+      displayName: 'build.sh'
+      inputs:
+        targetType: filePath
+        filePath: REPONAME=$(DockerImageName) ./build.sh
+        arguments: 'latest-x64 tag'
+        workingDirectory: '$(Build.SourcesDirectory)'
+    - task: Bash@3
+      displayName: docker rmi
+      inputs:
+        targetType: 'inline'
+        script: 'docker rmi $(DockerImageName):latest-buildx64'
+
+    - task: Docker@1
+      displayName: 'docker login'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: login
+    - task: Docker@1
+      displayName: 'docker push'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Push an image'
+        imageName: '${{ parameters.DockerImageName }}'
 
   - job: both
     timeoutInMinutes: 0
     dependsOn:
       - latest
       - latestx64
-    pool:
-      vmImage: ubuntu-latest
     steps:
-      - template: build_image.yml
-        parameters:
-          ImageName: 'latest-both'
-          DockerImageName: $(DockerImageName)
+
+    - task: Bash@3
+      displayName: chmod
+      inputs:
+        targetType: 'inline'
+        script: chmod +x build.sh
+    - task: Bash@3
+      displayName: 'build.sh'
+      inputs:
+        targetType: filePath
+        filePath: REPONAME=$(DockerImageName) ./build.sh
+        arguments: 'latest-both'
+        workingDirectory: '$(Build.SourcesDirectory)'
+
+    - task: Docker@1
+      displayName: 'docker login'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: login
+    - task: Docker@1
+      displayName: 'docker push'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Docker Hub'
+        command: 'Push an image'
+        imageName: '${{ parameters.DockerImageName }}'
