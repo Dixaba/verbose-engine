@@ -53,7 +53,7 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: '${{ parameters.DockerImageName }}'
+        imageName: '$(DockerImageName)'
 
 
   - job: latestx64
@@ -97,7 +97,7 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: '${{ parameters.DockerImageName }}'
+        imageName: '$(DockerImageName)'
 
   - job: both
     timeoutInMinutes: 0
@@ -131,4 +131,4 @@ jobs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Push an image'
-        imageName: '${{ parameters.DockerImageName }}'
+        imageName: '$(DockerImageName)'
