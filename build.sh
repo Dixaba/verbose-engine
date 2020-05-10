@@ -11,12 +11,12 @@ then
   FILENAME=$(sed -e 's/\-/\./g; s/latest\.\?//; s/$/\.Dockerfile/; s/^\.//' <<< $NAME);
   if [ -e $FILENAME ];
   then
-    echo docker build -f $FILENAME -t $REPONAME:$NAME .
-    echo VERSION=$(grep -oP 'Using Qt version \K[0-9.]+' <<< $(docker run --rm $REPONAME:$NAME qmake --version));
+    docker build -f $FILENAME -t $REPONAME:$NAME .
+    VERSION=$(grep -oP 'Using Qt version \K[0-9.]+' <<< $(docker run --rm $REPONAME:$NAME qmake --version));
     
     if [ $# -eq 2 ] && [ $2 = 'tag' ];
       then
-        echo docker image tag $REPONAME:$NAME $REPONAME:$(sed "s/latest/$VERSION/" <<< $NAME);
+        docker image tag $REPONAME:$NAME $REPONAME:$(sed "s/latest/$VERSION/" <<< $NAME);
     fi
 
   else
