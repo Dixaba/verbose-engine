@@ -12,48 +12,48 @@ pool:
   vmImage: ubuntu-latest
 
 jobs:
-  # - job: latest
-  #   timeoutInMinutes: 0
-  #   steps:
+  - job: latest
+    timeoutInMinutes: 0
+    steps:
 
-  #   - task: Bash@3
-  #     displayName: Bash
-  #     inputs:
-  #       targetType: 'inline'
-  #       script: |
-  #         chmod +x build.sh
-  #         ./build.sh latest-buildx86
-  #         ./build.sh latest tag
-  #         docker rmi $(DockerImageName):latest-buildx86
+    - task: Bash@3
+      displayName: Bash
+      inputs:
+        targetType: 'inline'
+        script: |
+          chmod +x build.sh
+          ./build.sh latest-buildx86
+          ./build.sh latest tag
+          docker rmi $(DockerImageName):latest-buildx86
 
-  #   - template: push_images.yml
-  #     parameters:
-  #       DockerImageName: $(DockerImageName)
+    - template: push_images.yml
+      parameters:
+        DockerImageName: $(DockerImageName)
 
 
-  # - job: latestx64
-  #   timeoutInMinutes: 0
-  #   steps:
+  - job: latestx64
+    timeoutInMinutes: 0
+    steps:
 
-  #   - task: Bash@3
-  #     displayName: Bash
-  #     inputs:
-  #       targetType: 'inline'
-  #       script: |
-  #         chmod +x build.sh
-  #         ./build.sh latest-buildx64
-  #         ./build.sh latest-x64 tag
-  #         docker rmi $(DockerImageName):latest-buildx64
+    - task: Bash@3
+      displayName: Bash
+      inputs:
+        targetType: 'inline'
+        script: |
+          chmod +x build.sh
+          ./build.sh latest-buildx64
+          ./build.sh latest-x64 tag
+          docker rmi $(DockerImageName):latest-buildx64
 
-  #   - template: push_images.yml
-  #     parameters:
-  #       DockerImageName: $(DockerImageName)
+    - template: push_images.yml
+      parameters:
+        DockerImageName: $(DockerImageName)
 
   - job: both
     timeoutInMinutes: 0
-    # dependsOn:
-    #   - latest
-    #   - latestx64
+    dependsOn:
+      - latest
+      - latestx64
     steps:
 
     - task: Bash@3
